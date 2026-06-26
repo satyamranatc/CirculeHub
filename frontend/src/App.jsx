@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import NavBar from "./components/NavBar.jsx"
 import Explore from "./pages/Explore.jsx"
@@ -8,7 +8,12 @@ import Auth from "./pages/Auth.jsx"
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 export default function App() {
-   let [isLoggedIn, setIsLoggedIn] = useState(true)
+   let [isLoggedIn, setIsLoggedIn] = useState(false)
+   useEffect(() => {
+     if (localStorage.getItem("user")) {
+    setIsLoggedIn(true)
+   }
+   },[])
   return (
     <div>
       <BrowserRouter>

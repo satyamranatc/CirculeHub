@@ -9,6 +9,7 @@ export default function Explore() {
     axios
       .get("http://localhost:8080/api/posts")
       .then((response) => {
+        console.log(response.data);
         setPosts(response.data);
       })
       .catch((error) => {
@@ -24,10 +25,15 @@ export default function Explore() {
 
     <div id="ContentContainer" className="flex flex-wrap px-4 justify-center items-center gap-4 mx-auto px-4 pb-10">
       {
-        postData.map((post) => {
+        postData.map((post) => (
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div className="p-4 border-b">
-            <h3 className="font-semibold text-lg">Rahul Jhunjuhnwala</h3>
+            <div className="flex">
+              <img
+              src={post.author.avatar}
+              alt="Avatar" className="h-10 w-10 rounded-full" />
+            <h3 className="font-semibold text-lg">{post.author.fullName}</h3>
+            </div>
             <p className="text-sm text-gray-500">12 Days Ago</p>
           </div>
 
@@ -43,8 +49,8 @@ export default function Explore() {
             </p>
           </div>
         </div>
-        })
-      }
+        ))
+}
        
       </div>
     </div>

@@ -21,30 +21,29 @@ public class UserController
     private UserRepo userRepo;
 
     @PostMapping("/api/user/register")
-    public String register(@RequestBody UserModel user)
+    public UserModel register(@RequestBody UserModel user)
     {
-        userRepo.save(user);
-        return "success";
+        UserModel newUser = userRepo.save(user);
+        return newUser;
     }
 
     @PostMapping("/api/user/login")
-    public String login(@RequestBody LoginModel user)
+    public UserModel login(@RequestBody LoginModel user)
     {
+
         List allUsers = userRepo.findAll();
-        
+
+
+        System.out.println(user.getPassword() + " " + user.getEmail());
         for(int i = 0; i < allUsers.size(); i++)
         {
-            if(((UserModel)allUsers.get(i)).getEmail().equals(user.getEmail()) && ((UserModel)allUsers.get(i)).getPassword().equals(user.getPassword()))
-            {
-                return "success";
-            }
-            else
-            {
-                return "fail";
-            }
+           if(user.getPassword().equals(((UserModel)allUsers.get(i)).getPassword()) && user.getEmail().equals(((UserModel)allUsers.get(i)).getEmail()))
+           {
+               return (UserModel)allUsers.get(i);
+           }
         }
 
-        return "success";
+        return null;
     }
     
 }

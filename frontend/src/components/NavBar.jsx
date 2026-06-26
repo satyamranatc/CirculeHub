@@ -18,7 +18,11 @@ export default function NavBar({isLoggedIn, setIsLoggedIn}) {
             isLoggedIn ? (
                 <>
                     <li><Link to="/profile">Profile</Link></li>
-                    <li><button className="btn bg-rose-500 text-white px-4 py-2 rounded-2xl" onClick={() => setIsLoggedIn(false)}>Logout</button></li>
+                    <li><button className="btn bg-rose-500 text-white px-4 py-2 rounded-2xl" onClick={() => {
+                        setIsLoggedIn(false)
+                        localStorage.removeItem("user")
+                    }
+                    }>Logout</button></li>
                 </>
             ) : (
                 <li><Link to="/auth">Login</Link></li>

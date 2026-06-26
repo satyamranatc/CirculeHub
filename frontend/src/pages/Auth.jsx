@@ -1,6 +1,46 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import axios from "axios";
 
 export default function Auth() {
+
+  useEffect(()=>{
+
+    // if (localStorage.getItem("user")) {
+    //   window.location.href = "/profile"
+    // }
+
+  },[])
+
+  async function handleSignUp(e) 
+  {
+    e.preventDefault();
+    let data = {
+      fullName: e.target[0].value,
+      avatar: e.target[1].value,
+      email: e.target[2].value,
+      password: e.target[3].value
+    }
+
+    let res = await axios.post("http://localhost:8080/api/user/register", data)
+    console.log(res.data)
+    localStorage.setItem("user", JSON.stringify(res.data))
+    
+  }
+
+  async function handleLogin(e)
+  {
+    e.preventDefault();
+    let data = {
+      email: e.target[0].value,
+      password: e.target[1].value
+    }
+    let res = await axios.post("http://localhost:8080/api/user/login", data)
+    console.log("Login",res.data)
+    localStorage.setItem("user", JSON.stringify(res.data))
+  }
+
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <div className="w-full max-w-5xl grid md:grid-cols-2 gap-8">
@@ -12,7 +52,7 @@ export default function Auth() {
         >
           <h2 className="text-3xl font-bold mb-6">Login</h2>
 
-          <form className="space-y-5">
+          <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label
                 htmlFor="login-email"
@@ -61,7 +101,7 @@ export default function Auth() {
         >
           <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
 
-          <form className="space-y-5">
+          <form onSubmit={handleSignUp} className="space-y-5">
             <div>
               <label
                 htmlFor="signup-name"

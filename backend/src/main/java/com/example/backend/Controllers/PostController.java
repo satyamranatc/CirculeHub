@@ -27,10 +27,10 @@ public class PostController
     }
     
 
-    @PostMapping("/api/post")
-    public String addPost(@RequestBody PostModel post)
+    @PostMapping("/api/posts")
+    public String addPost(@RequestBody PostModel newPost)
     {
-        postRepo.save(post);
+        postRepo.save(newPost);
         return "success";
     }
 }
